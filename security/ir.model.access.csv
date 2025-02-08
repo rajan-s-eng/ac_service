@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_asset,access_partner_asset,model_partner_asset,,1,1,1,1
+access_asset_brand,access_asset_brand,model_asset_brand,,1,1,1,1
+access_product_commission,access_product_commission,model_product_commission,,1,1,1,1

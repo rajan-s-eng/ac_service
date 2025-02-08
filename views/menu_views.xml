@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem
+            id="menu_partner_asset_root"
+            name="AC Service"
+            sequence="185"/>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <record id="view_asset_tree" model="ir.ui.view">
+        <field name="name">asset.brand.tree</field>
+        <field name="model">asset.brand</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_asset_form" model="ir.ui.view">
+        <field name="name">asset.brand.form</field>
+        <field name="model">asset.brand</field>
+        <field name="arch" type="xml">
+            <form string="AC Service">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_asset_search" model="ir.ui.view">
+        <field name="name">asset.brand.search</field>
+        <field name="model">asset.brand</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_asset_brand" model="ir.actions.act_window">
+        <field name="name">Brands</field>
+        <field name="res_model">asset.brand</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_asset_brand" name="Brand" parent="menu_partner_asset_root" action="action_asset_brand" sequence="30"/>
+</odoo>
