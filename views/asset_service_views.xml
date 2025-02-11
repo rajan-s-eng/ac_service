@@ -1,0 +1,98 @@
+<odoo>
+
+    <record id="view_asset_service_tree" model="ir.ui.view">
+        <field name="name">asset.service.tree</field>
+        <field name="model">asset.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="asset_id"/>
+                <field name="brand_id"/>
+                <field name="model_no" optional="show"/>
+                <field name="warranty_start" optional="show"/>
+                <field name="warranty_end" optional="hide"/>
+                <field name="schedule_date" optional="hide"/>
+                <field name="completion_date"/>
+                <field name="user_id" optional="show"/>
+                <field name="p_o"/>
+                <field name="s_o"/>
+                <field name="priority"/>
+                <field name="duration"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_asset_service_form" model="ir.ui.view">
+        <field name="name">asset.service.form</field>
+        <field name="model">asset.service</field>
+        <field name="arch" type="xml">
+            <form string="AC Service">
+                <!-- button -->
+    <!--             <header>
+                    <button name="action_confirm" type="object" string="Continue" class="btn-primary"/>
+                    <button name="action_in_progress" type="object" string="In Progress" class="btn-primary"/>
+                    <button name="action_pending_parts" type="object" string="In Payment" class="btn-primary"/>
+                    <button name="action_completed" type="object" string="Completed" class="btn-primary"/>
+                    <button name="action_rescheduled" type="object" string="Rescheduled" class="btn-primary"/>
+                    <button name="action_no_answer" type="object" string="Rescheduled" class="btn-primary"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header> -->
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"  widget="res_partner_many2one" context="{'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,                                          'show_address': 1, 'default_is_company': True, 'show_vat': True}"/>
+                            <field name="asset_id"/>
+                            <field name="brand_id"/>
+                            <field name="model_no"/>
+                            <field name="warranty_start"/>
+                            <field name="warranty_end"/>
+                        </group>
+                        <group>
+                            <field name="completion_date"/>
+                            <field name="schedule_date"/>
+                            <field name="p_o"/>
+                            <field name="s_o"/>
+                            <field name="priority"/>
+                            <field name="duration"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_asset_service_search" model="ir.ui.view">
+        <field name="name">asset.service.search</field>
+        <field name="model">asset.service</field>
+        <field name="arch" type="xml">
+            <search string="Search Service">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="asset_id"/>
+                <field name="brand_id"/>
+                <field name="model_no"/>
+                <field name="warranty_start"/>
+                <field name="warranty_end"/>
+                <!-- Group By -->
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="group_by_name" context="{'group_by': 'name'}"/>
+                    <filter string="Brand" name="group_by_brand" context="{'group_by':'brand_id'}"/>
+                    <filter string="Model No" name="group_by_model_no" context="{'group_by':'model_no'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_asset_service" model="ir.actions.act_window">
+        <field name="name">Jobs</field>
+        <field name="res_model">asset.service</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_asset_jobs" name="Jobs" parent="menu_partner_asset_root" action="action_asset_service" sequence="1"/>
+</odoo>

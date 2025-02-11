@@ -39,5 +39,5 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_asset_brand" name="Brand" parent="menu_partner_asset_root" action="action_asset_brand" sequence="30"/>
+    <menuitem id="menu_asset_brand" name="Brand" parent="menu_configuration" action="action_asset_brand" sequence="1"/>
 </odoo>

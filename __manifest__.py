@@ -1,5 +1,5 @@
 {
-    'name': 'AC Service',
+    'name': 'Job_card',
     'version': '17.0',
     'summary': 'Manage Service',
     'sequence': 1,
@@ -7,14 +7,17 @@
     'category': 'Vendor',
     'author': 'Sismatix',
     'website': 'http://sismatix.co',
-    'depends': ['contacts', 'product'],
+    'depends': ['contacts', 'stock'],
     'data': [
         'security/ir.model.access.csv',
         'views/menu_views.xml',
         'views/partner_asset_views.xml',
         'views/asset_brand_views.xml',
-        'views/product_commission_views.xml',
+        'views/user_views.xml',
         'views/partner_views.xml',
+        'views/product_commission_views.xml',
+        'views/asset_service_views.xml',
+        'data/job_service_data.xml',
     ],
     
     'installable': True,

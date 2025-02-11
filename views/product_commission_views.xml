@@ -1,4 +1,5 @@
 <odoo>
+    
     <record id="view_commission_product_tree" model="ir.ui.view">
         <field name="name">product.commission.tree</field>
         <field name="model">product.commission</field>
@@ -8,6 +9,8 @@
                 <field name="product_id"/>
                 <field name="comm_fixed"/>
                 <field name="comm_percent"/>
+                <field name="incentive_amount"/>
+                <field name="no_of_call"/>
             </tree>
         </field>
     </record>
@@ -16,13 +19,15 @@
         <field name="name">product.commission.form</field>
         <field name="model">product.commission</field>
         <field name="arch" type="xml">
-            <form string="AC Service">
+            <form string="Commission">
                 <sheet>
                     <group>
                         <field name="user_id"/>
                         <field name="product_id"/>
                         <field name="comm_fixed"/>
                         <field name="comm_percent"/>
+                        <field name="incentive_amount"/>
+                        <field name="no_of_call"/>
                     </group>
                 </sheet>
             </form>
@@ -46,6 +51,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_product_commission" name="Product Commission" parent="menu_partner_asset_root" 
-        action="action_commission_product" sequence="40"/>
+    <menuitem id="menu_product_commission" name="Product Commission" parent="menu_technicians" 
+        action="action_commission_product" sequence="2"/>
 </odoo>

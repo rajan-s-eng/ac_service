@@ -1,6 +1,25 @@
 <odoo>
+    
     <menuitem
             id="menu_partner_asset_root"
-            name="AC Service"
+            name="Job Card"
             sequence="185"/>
+
+    <menuitem id="menu_configuration" 
+        name="Configuration" 
+        sequence="4" 
+        parent="menu_partner_asset_root"/>
+
+    <menuitem 
+        id="menu_technicians" 
+        name="Technicians" 
+        sequence="3" 
+        parent="menu_partner_asset_root"/>
+
+    <menuitem 
+        id="menu_master_data"
+        name="Master Data"
+        sequence="2" 
+        parent="menu_partner_asset_root" />
+
 </odoo>

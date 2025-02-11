@@ -14,4 +14,11 @@
             </xpath>
         </field>
     </record>
+
+    <!-- Master Data -> Customers -->
+
+    <menuitem id="menu_res_partner" name="Customers" parent="menu_master_data" action="contacts.action_contacts" sequence="6"/>
+
+    <menuitem id="menu_stock_products" name="Products" parent="menu_master_data" action="stock.product_template_action_product" sequence="2"/>
+
 </odoo>

@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_partner_asset,access_partner_asset,model_partner_asset,,1,1,1,1
 access_asset_brand,access_asset_brand,model_asset_brand,,1,1,1,1
+access_res_users,access_res_users,model_res_users,,1,1,1,1
 access_product_commission,access_product_commission,model_product_commission,,1,1,1,1
+access_asset_service,access_asset_service,model_asset_service,,1,1,1,1

@@ -4,13 +4,16 @@
         <field name="model">partner.asset</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="invoice_no"/>
+                <field name="partner_id" />
                 <field name="brand_id"/>
-                <field name="model_no"/>
-                <field name="warranty_start"/>
-                <field name="warranty_end"/>
-                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="model_no" optional="show"/>
+                <field name="indoor_model_sr" optional="show"/>
+                <field name="outdoor_model_sr" optional="show"/>
+                <field name="purchase_date" optional="hide"/>
+                <field name="invoice_ref" optional="hide"/>
+                <field name="warranty_start" optional="show"/>
+                <field name="warranty_end" optional="show"/>
             </tree>
         </field>
     </record>
@@ -21,20 +24,33 @@
         <field name="arch" type="xml">
             <form string="AC Service">
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Asset Name....."/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="invoice_no"/>
-                            <field name="brand_id"/>
+                            <field name="partner_id"/>
                             <field name="model_no"/>
+                            <field name="brand_id"/>
+                            <field name="indoor_model_sr"/>
+                            <field name="outdoor_model_sr"/>
                         </group>
                         <group>
+                            <field name="purchase_date"/>
+                            <field name="invoice_ref"/>
+                            <!-- <field name="per_machine_unique"/> -->
                             <field name="warranty_start"/>
                             <field name="warranty_end"/>
-                            <field name="partner_id"/>
                         </group>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>  
             </form>
         </field>
     </record>
@@ -44,10 +60,21 @@
         <field name="model">partner.asset</field>
         <field name="arch" type="xml">
             <search>
+                <field name="partner_id"/>
                 <field name="name"/>
-                <field name="invoice_no"/>
                 <field name="brand_id"/>
                 <field name="model_no"/>
+                <field name="indoor_model_sr"/>
+                <field name="outdoor_model_sr"/>
+                <field name="invoice_ref"/>
+                <!-- Group By -->
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="group_by_partner_id" context="{'group_by':'partner_id'}"/>
+                    <filter string="Product" name="group_by_name" context="{'group_by':'name'}"/>
+                    <filter string="Purchase Date" name="group_by_purchase_date" 
+                        context="{'group_by':'purchase_date'}"/>
+                    <filter string="Model No" name="group_by_model_no" context="{'group_by':'model_no'}"/>
+                </group>
             </search>
         </field>
     </record>
@@ -58,5 +85,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_partner_asset" name="Asset" parent="menu_partner_asset_root" action="action_partner_asset" sequence="20"/>
+    <menuitem id="menu_partner_asset" name="AC List" parent="menu_master_data" action="action_partner_asset" sequence="8"/>
+
 </odoo>
