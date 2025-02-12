@@ -4,3 +4,5 @@ access_asset_brand,access_asset_brand,model_asset_brand,,1,1,1,1
 access_res_users,access_res_users,model_res_users,,1,1,1,1
 access_product_commission,access_product_commission,model_product_commission,,1,1,1,1
 access_asset_service,access_asset_service,model_asset_service,,1,1,1,1
+access_job_reason,access_job_reason,model_job_reason,,1,1,1,1
+access_job_reason_wizard,access_job_reason_wizard,model_wizard_job_reason,,1,1,1,1

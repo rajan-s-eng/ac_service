@@ -13,12 +13,16 @@
                 <field name="warranty_start" optional="show"/>
                 <field name="warranty_end" optional="hide"/>
                 <field name="schedule_date" optional="hide"/>
-                <field name="completion_date"/>
+                <field name="completion_date" optional="hide"/>
                 <field name="user_id" optional="show"/>
-                <field name="p_o"/>
-                <field name="s_o"/>
-                <field name="priority"/>
-                <field name="duration"/>
+                <field name="p_o" optional="hide"/>
+                <field name="s_o" optional="show"/>
+                <field name="priority" optional="hide"/>
+                <field name="duration" optional="hide"/>
+                <field name="cancel_reason_id" optional="show"/>
+                <field name="cancel_reason" optional="hide"/>
+                <field name="reschedule_reason_id" optional="show"/>
+                <field name="reschedule_reason" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -29,27 +33,49 @@
         <field name="arch" type="xml">
             <form string="AC Service">
                 <!-- button -->
-    <!--             <header>
-                    <button name="action_confirm" type="object" string="Continue" class="btn-primary"/>
-                    <button name="action_in_progress" type="object" string="In Progress" class="btn-primary"/>
-                    <button name="action_pending_parts" type="object" string="In Payment" class="btn-primary"/>
-                    <button name="action_completed" type="object" string="Completed" class="btn-primary"/>
-                    <button name="action_rescheduled" type="object" string="Rescheduled" class="btn-primary"/>
-                    <button name="action_no_answer" type="object" string="Rescheduled" class="btn-primary"/>
-                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary"/>
+                <header>
                     <field name="state" widget="statusbar" clickable="1"/>
-                </header> -->
+
+                    <button name="action_confirm" type="object" string="Confirm" class="btn-primary" 
+                        invisible="state not in ('draft')"/>
+
+                    <button name="action_in_progress" type="object" string="In Progress" class="btn-primary" 
+                        invisible="state not in ('confirmed')"/>
+
+                    <button name="action_pending_parts" type="object" string="Pending Parts" class="btn-primary" 
+                        invisible="state not in ('in_progress')"/>
+
+                    <button name="action_completed" type="object" string="Completed" class="btn-primary" 
+                        invisible="state not in ('in_progress', 'pending_due_to_spare_parts')"/>
+
+                    <button name="action_rescheduled" type="object" string="Rescheduled" class="btn-primary" 
+                        invisible="state not in ('in_progress', 'pending_due_to_spare_parts')"/>
+
+                    <button name="action_no_answer" type="object" string="No Answer" class="btn-primary" 
+                        invisible="state not in ('confirmed', 'in_progress')"/>
+
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary" 
+                        invisible="state in ('cancelled', 'completed')"/>
+                </header>
 
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="name"/>
                             <field name="partner_id"  widget="res_partner_many2one" context="{'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,                                          'show_address': 1, 'default_is_company': True, 'show_vat': True}"/>
                             <field name="asset_id"/>
                             <field name="brand_id"/>
                             <field name="model_no"/>
                             <field name="warranty_start"/>
                             <field name="warranty_end"/>
+                            <field name="cancel_reason"/>
+                            <field name="cancel_reason_id"/>
+                            <field name="reschedule_reason_id"/>
+                            <field name="reschedule_reason"/>
                         </group>
                         <group>
                             <field name="completion_date"/>
@@ -62,7 +88,50 @@
                         </group>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>  
             </form>
+        </field>
+    </record>
+
+    <record id="view_asset_service_kanban" model="ir.ui.view">
+        <field name="name">asset.service.kanban</field>
+        <field name="model">asset.service</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="schedule_date"/>
+                <field name="user_id"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div class="oe_kanban_content">
+                                    <span t-esc="record.partner_id.value"/>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    Scheduled: <span t-esc="record.schedule_date.value"/>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    Assigned to: <span t-esc="record.user_id.value"/>
+                                </div>
+                                <div class="oe_kanban_badge" t-att-class="record.state.raw_value">
+                                    <t t-esc="record.state.value"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
@@ -91,7 +160,7 @@
     <record id="action_asset_service" model="ir.actions.act_window">
         <field name="name">Jobs</field>
         <field name="res_model">asset.service</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <menuitem id="menu_asset_jobs" name="Jobs" parent="menu_partner_asset_root" action="action_asset_service" sequence="1"/>

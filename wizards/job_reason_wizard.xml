@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_job_reason_form" model="ir.ui.view">
+        <field name="name">wizard.job.reason.form</field>
+        <field name="model">wizard.job.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="job_id" readonly="1" force_save="1"/>
+                    <field name="reason_type" invisible="1"/>
+                    <field name="reason_id" domain="[('reason_type', '=', reason_type)]"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button string="Update" name="action_update_job" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_job_reason" model="ir.actions.act_window">
+        <field name="name">Reason Of Cancel and Reschedule</field>
+        <field name="res_model">wizard.job.reason</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -16,7 +16,7 @@ class Partner(models.Model):
     def action_partner_assets(self):
         self.ensure_one()
         ctx = self.env.context.copy()
-        action = self.env["ir.actions.act_window"]._for_xml_id("action_partner_asset")
+        action = self.env["ir.actions.act_window"]._for_xml_id("job_service.action_partner_asset")
         action['domain'] = [('partner_id', '=', self.id)]
         ctx.update({'default_partner_id': self.id})
         action['context'] = ctx

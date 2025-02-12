@@ -17,7 +17,9 @@
         'views/partner_views.xml',
         'views/product_commission_views.xml',
         'views/asset_service_views.xml',
+        'views/job_reason_views.xml',
         'data/job_service_data.xml',
+        'wizards/job_reason_wizard.xml',
     ],
     
     'installable': True,
